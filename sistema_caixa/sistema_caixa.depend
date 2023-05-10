@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1683677534 source:d:\diretórios\sistema_caixa\sistema_caixa\main.c
+1683758092 source:d:\diretórios\sistema_caixa\sistema_caixa\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
+	<unistd.h>
 
