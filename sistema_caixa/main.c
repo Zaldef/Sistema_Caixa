@@ -51,5 +51,21 @@ int main() {
 
     moldura_inicial();
     verificacao_senha(2323,0,0,0);
+    float nota_200 = 2, nota_100 = 4, nota_50 = 6, nota_10 = 10, nota_5 = 10, moeda_1 = 20, moeda_50 = 20, valor_produto = 0, valor_anterior = 0, soma_valor = 0;
+    int i = 1;
+    char resposta = 0;
+    
+    do{
+        printf("\nVALORES DOS ITENS VENDIDOS: ");
+        printf("\nDigite o valor do item %d", i);
+        scanf("%f", &valor_produto);
+        
+        if (valor_produto < 0){
+            soma_valor -= valor_anterior;
+        }else{
+            valor_anterior = valor_produto;
+            soma_valor += valor_produto;
+        }
+    }while(resposta != S );
     return 0;
 }
