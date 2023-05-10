@@ -66,6 +66,7 @@ int main() {
             valor_anterior = valor_produto;
             soma_valor += valor_produto;
         }
+        i++;
     }while(resposta != S );
     return 0;
 }
