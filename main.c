@@ -78,9 +78,17 @@ float leitura_vendas(){
     printf("\nVenda finalizada com %d itens", i);
     return soma_valor;
 }
-void troco(float soma_valor,int *moeda_50,int *moeda_1,int *nota_5,int *nota_10,int *nota_50,int *nota_100,int *nota_200, int *semtroco_flag){
+
+int main() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+
+    moldura_inicial();
+    verificacao_senha(2323);
+    float soma_valor,valor_pago, troco, valor_troco=0;
+    int nota_200 = 2, nota_100 = 4, nota_50 = 6, nota_10 = 10, nota_5 = 10, moeda_1 = 20, moeda_50 = 20,semtroco_flag;
     int qntd_200 = 0,qntd_100 = 0, qntd_50 = 0,qntd_10 = 0,qntd_5 = 0,qntd_1 = 0,qntd_050 = 0;
-    float valor_pago, troco, valor_troco=0;
+    soma_valor=leitura_vendas();
+    printf("\nValor total da compra: R$%.2f", soma_valor);
     do{
         printf("\nInsira o valor pago : R$");
         scanf("%f",&valor_pago);
@@ -93,56 +101,56 @@ void troco(float soma_valor,int *moeda_50,int *moeda_1,int *nota_5,int *nota_10,
         printf("\nNao precisa de troco!");
     }else{
         do{
-            if(troco >= 0 && *moeda_50 >=1){
-                if(troco >= 1 && *moeda_1 >=1){
-                    if(troco >= 5 && *nota_5 >=1){
-                        if(troco >= 10 && *nota_10 >=1){
-                            if(troco >= 50 && *nota_50 >=1){
-                                if(troco >= 100 && *nota_100 >=1){
-                                    if(troco >=200 && *nota_200 >=1){
+            if(troco >= 0 && moeda_50 >=1){
+                if(troco >= 1 && moeda_1 >=1){
+                    if(troco >= 5 && nota_5 >=1){
+                        if(troco >= 10 && nota_10 >=1){
+                            if(troco >= 50 && nota_50 >=1){
+                                if(troco >= 100 && nota_100 >=1){
+                                    if(troco >=200 && nota_200 >=1){
                                         troco -=200;
-                                        *nota_200--;
+                                        nota_200--;
                                         qntd_200++;
                                         valor_troco +=200;
                                     }else{
                                         troco -=100;
-                                        *nota_100--;
+                                        nota_100--;
                                         qntd_100++;
                                         valor_troco +=100;
                                     }
                                 }else{
                                     troco -=50;
-                                    *nota_50--;
+                                    nota_50--;
                                     qntd_50++;
                                     valor_troco +=50;
                                 }
                             }else{
                                 troco -=10;
-                                *nota_10--;
+                                nota_10--;
                                 qntd_10++;
                                 valor_troco +=10;
                             }
                         }else{
                             troco-=5;
-                            *nota_5--;
+                            nota_5--;
                             qntd_5++;
                             valor_troco +=5;
                         }
                     }else{
                         troco-=1;
-                        *moeda_1--;
+                        moeda_1--;
                         qntd_1++;
                         valor_troco +=1;
                     }
                 }else{
                     troco -= 0.5;
-                    *moeda_50--;
+                    moeda_50--;
                     qntd_050++;
                     valor_troco +=0.5;
                 }
             }
         if( troco > 0 && moeda_50 ==0){
-            *semtroco_flag = 1;
+            semtroco_flag = 1;
             break;
         }
         }while(troco > 0);
@@ -197,17 +205,6 @@ void troco(float soma_valor,int *moeda_50,int *moeda_1,int *nota_5,int *nota_10,
             }
         }
     }
-}
-int main() {
-    setlocale(LC_ALL, "pt_BR.UTF-8");
-
-    moldura_inicial();
-    verificacao_senha(2323);
-    float soma_valor;
-    int nota_200 = 2, nota_100 = 4, nota_50 = 6, nota_10 = 10, nota_5 = 10, moeda_1 = 20, moeda_50 = 20,semtroco_flag;
-    soma_valor=leitura_vendas();
-    printf("\nValor total da compra: R$%.2f", soma_valor);
-    troco(soma_valor, &moeda_50,&moeda_1,&nota_5,&nota_10,&nota_50,&nota_50,&nota_200,&semtroco_flag);
     system("pause");
     system("cls");
     printf("\n%d",nota_200);
