@@ -79,16 +79,18 @@ float leitura_vendas(int qntd_vendas){
     printf("\nVenda finalizada com %d itens", i);
     return soma_valor;
 }
-void saldo_caixa(int nota_200,int nota_100, int nota_50,int nota_10,int nota_5,int moeda_1,int moeda_50, float *saldo_caixa){
-    *saldo_caixa += (nota_200 * 200);
-    *saldo_caixa += (nota_100 * 100);
-    *saldo_caixa += (nota_50 * 50);
-    *saldo_caixa += (nota_10 * 10);
-    *saldo_caixa += (nota_5 * 5);
-    *saldo_caixa += (moeda_1 * 1);
-    *saldo_caixa += (moeda_50 * 0.5);
+float cal_saldo_caixa(int nota_200,int nota_100, int nota_50,int nota_10,int nota_5,int moeda_1,int moeda_50){
+    float saldo_caixa = 0;
+    saldo_caixa += (nota_200 * 200);
+    saldo_caixa += (nota_100 * 100);
+    saldo_caixa += (nota_50 * 50);
+    saldo_caixa += (nota_10 * 10);
+    saldo_caixa += (nota_5 * 5);
+    saldo_caixa += (moeda_1 * 1);
+    saldo_caixa += (moeda_50 * 0.5);
+    return saldo_caixa;
 }
-void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *pont_5,int *pont_1,int *pont_050, int soma_valor, int *semtroco_flag){
+void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *pont_5,int *pont_1,int *pont_050, int soma_valor, int *semtroco_flag, float saldo_caixa){
     float valor_pago, troco, valor_troco=0, soma_troco = 0;
     int qntd_200 = 0,qntd_100 = 0, qntd_50 = 0,qntd_10 = 0,qntd_5 = 0,qntd_1 = 0,qntd_050 = 0, troco_flag = 0;
     do{
@@ -98,37 +100,29 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
             printf("Valor inserido menor do que o valor total da compra, digite novamente por favor!!");
         }
     }while(valor_pago < soma_valor);
-
     do{
         if(troco_flag == 1){
             printf("Erro na digitacao das notas, valor e diferente do valor pago!!!\n Tente novamente\n");
             soma_troco = 0;
         }
-
         printf("\tInsira a quantidade de notas de R$200.00: ");
         scanf("%d", &qntd_200);
         soma_troco += qntd_200*200;
-
         printf("\tInsira a quantidade de notas de R$100.00: ");
         scanf("%d", &qntd_100);
         soma_troco += qntd_100 * 100;
-
         printf("\tInsira a quantidade de notas de R$50.00: ");
         scanf("%d", &qntd_50);
         soma_troco += qntd_50 * 50;
-
         printf("\tInsira a quantidade de notas de R$10.00: ");
         scanf("%d", &qntd_10);
         soma_troco += qntd_10 * 10;
-
         printf("\tInsira a quantidade de notas de R$5.00: ");
         scanf("%d", &qntd_5);
         soma_troco += qntd_5 * 5;
-
         printf("\tInsira a quantidade de moedas de R$1.00: ");
         scanf("%d", &qntd_1);
         soma_troco += qntd_1;
-
         printf("\tInsira a quantidade de moedas de R$0.50: ");
         scanf("%d", &qntd_050);
         soma_troco += qntd_050*0.50;
@@ -139,27 +133,24 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
             troco_flag = 0;
         }
     }while(troco_flag == 1);
+    if(soma_troco>saldo_caixa){
+        *semtroco_flag = 1;
+        return;
+    }
     *pont_200 += qntd_200;
     qntd_200 = 0;
-
     *pont_100 += qntd_100;
     qntd_100 = 0;
-
     *pont_50 += qntd_50;
     qntd_50 = 0;
-
     *pont_10 += qntd_10;
     qntd_10 = 0;
-
     *pont_5 += qntd_5;
     qntd_5 = 0;
-
     *pont_1 += qntd_1;
     qntd_1 = 0;
-
     *pont_050 += qntd_050;
     qntd_050 = 0;
-
     troco = valor_pago-soma_valor;
     if(troco == 0){
         printf("\nNao precisa de troco!");
@@ -214,65 +205,60 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
                 }
             }
 // caso acabe o troco, ativa a flag
-            if( troco > 0 && *pont_050 == 0){
-                *semtroco_flag = 1;
-                troco = 0;
-            }
         }while(troco > 0);
-        if(*semtroco_flag == 0){
-            printf("\nO troco sera de: R$%.2f", valor_troco);
-            if(qntd_200 != 0){
-                if(qntd_200 == 1){
-                    printf("\n\t%d nota de R$200",qntd_200);
-                }else{
-                    printf("\n\t%d notas de R$200",qntd_200);
-                }
+        printf("\nO troco sera de: R$%.2f", valor_troco);
+        if(qntd_200 != 0){
+            if(qntd_200 == 1){
+                printf("\n\t%d nota de R$200",qntd_200);
+            }else{
+                printf("\n\t%d notas de R$200",qntd_200);
             }
-            if(qntd_100 != 0){
-                if(qntd_100 == 1){
-                    printf("\n\t%d nota de R$100",qntd_100);
-                }else{
-                    printf("\n\t%d notas de R$100",qntd_100);
-                }
+        }
+        if(qntd_100 != 0){
+            if(qntd_100 == 1){
+                printf("\n\t%d nota de R$100",qntd_100);
+            }else{
+                printf("\n\t%d notas de R$100",qntd_100);
             }
-            if(qntd_50 != 0){
-                if(qntd_50 == 1){
-                    printf("\n\t%d nota de R$50",qntd_50);
-                }else{
-                    printf("\n\t%d notas de R$50",qntd_50);
-                }
+        }
+        if(qntd_50 != 0){
+            if(qntd_50 == 1){
+                printf("\n\t%d nota de R$50",qntd_50);
+            }else{
+                printf("\n\t%d notas de R$50",qntd_50);
             }
-            if(qntd_10 != 0){
-                if(qntd_10 == 1){
-                    printf("\n\t%d nota de R$10",qntd_10);
-                }else{
-                    printf("\n\t%d notas de R$10",qntd_10);
-                }
+        }
+        if(qntd_10 != 0){
+            if(qntd_10 == 1){
+                printf("\n\t%d nota de R$10",qntd_10);
+            }else{
+                printf("\n\t%d notas de R$10",qntd_10);
             }
-            if(qntd_5 != 0){
-                if(qntd_5 == 1){
-                    printf("\n\t%d nota de R$5",qntd_5);
-                }else{
-                    printf("\n\t%d notas de R$5",qntd_5);
-                }
+        }
+        if(qntd_5 != 0){
+            if(qntd_5 == 1){
+                printf("\n\t%d nota de R$5",qntd_5);
+            }else{
+                printf("\n\t%d notas de R$5",qntd_5);
             }
-            if(qntd_1 != 0){
-                if(qntd_1 == 1){
-                    printf("\n\t%d moeda de R$1",qntd_1);
-                }else{
-                    printf("\n\t%d moedas de R$1",qntd_1);
-                }
+        }
+        if(qntd_1 != 0){
+            if(qntd_1 == 1){
+                printf("\n\t%d moeda de R$1",qntd_1);
+            }else{
+                printf("\n\t%d moedas de R$1",qntd_1);
             }
-            if(qntd_050 != 0){
-                if(qntd_050 == 1){
-                    printf("\n\t%d moeda de R$0.50",qntd_050);
-                }else{
-                    printf("\n\t%d moedas de R$0.50",qntd_050);
-                }
+        }
+        if(qntd_050 != 0){
+            if(qntd_050 == 1){
+                printf("\n\t%d moeda de R$0.50",qntd_050);
+            }else{
+                printf("\n\t%d moedas de R$0.50",qntd_050);
             }
         }
     }
 }
+
 
 int main() {
     moldura_inicial();
@@ -281,57 +267,27 @@ int main() {
     float soma_valor,valor_vendas = 0, saldo_caixa = 0;
     int qntd_vendas = 0,semtroco_flag = 0;
     char resposta=0;
-    do{
-        soma_valor=leitura_vendas(qntd_vendas);
-    }while(soma_valor == 0);
-    printf("\nValor total da compra: R$%.2f", soma_valor);
-    calculo_troco(&nota_200,&nota_100,&nota_50,&nota_10,&nota_5,&moeda_1,&moeda_50,soma_valor,&semtroco_flag);
-    system("pause");
-/*
-// impressão do troco a ser dado para o cliente
 
-// caso nao haja troco, a venda é desconsiderada e o dinheiro retorna para o caixa e ele é encerrado
-            }else{
-                if( qntd_200 != 0){
-                    nota_200 += qntd_200;
-                    qntd_200 = 0;
-                }
-                if( qntd_100 != 0){
-                    nota_100 += qntd_100;
-                    qntd_100 = 0;
-                }
-                if( qntd_50 != 0){
-                    nota_50 += qntd_50;
-                    qntd_50 = 0;
-                }
-                if( qntd_10 != 0){
-                    nota_10 += qntd_10;
-                    qntd_10 = 0;
-                }
-                if( qntd_5 != 0){
-                    nota_5 += qntd_5;
-                    qntd_5 = 0;
-                }
-                if( qntd_1 != 0){
-                    moeda_1 += qntd_1;
-                    qntd_1 = 0;
-                }
-                if( qntd_050 != 0){
-                    moeda_50 += qntd_050;
-                    qntd_050 = 0;
-                }
-                qntd_vendas--;
-                resposta = 's';
-            }
+    do{
+        saldo_caixa = cal_saldo_caixa(nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
+        qntd_vendas++;
+        do{
+            soma_valor=leitura_vendas(qntd_vendas);
+        }while(soma_valor == 0);
+        printf("\nValor total da compra: R$%.2f", soma_valor);
+            calculo_troco(&nota_200,&nota_100,&nota_50,&nota_10,&nota_5,&moeda_1,&moeda_50,soma_valor,&semtroco_flag,saldo_caixa);
+        system("pause");
+        if(semtroco_flag == 0){
+            valor_vendas += soma_valor;
+            printf("\n Deseja fechar o caixa?(SIM-S/NAO-N)");
+            getchar();
+            scanf("%c", &resposta);
+        }else{
+            qntd_vendas--;
+            resposta = 's';
         }
-    if(semtroco_flag == 0){
-        valor_vendas += soma_valor;
-        printf("\n Deseja fechar o caixa?(SIM-S/NAO-N)");
-        getchar();
-        scanf("%c", &resposta);
-    }
     }while(resposta != 'S' && resposta != 's');
-*/
+
     system("cls");
     printf("\n200 - %d",nota_200);
     printf("\n100 - %d",nota_100);
