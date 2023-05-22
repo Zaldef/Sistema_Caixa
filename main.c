@@ -1,7 +1,6 @@
 //Sistema de caixa com senha, leitura de vendas, calculo de troca e fechamento do caixa com analise geral das vendas
 #include <stdio.h>
 #include <stdlib.h>
-#include <nc
 
 // Mensagem de bem vindo com moldura de barra dupla
 void moldura_inicial(){
@@ -19,7 +18,7 @@ void moldura_inicial(){
     }
     printf("%c",185);
 }
-// FunÁ„o para verificar atraves de comparaÁ„o, parametro de entrada È uma senha definida quando a funÁ„o È chamada
+// Fun√ß√£o para verificar atraves de compara√ß√£o, parametro de entrada √© uma senha definida quando a fun√ß√£o √© chamada
 void verificacao_senha(int senha){
     int tent_senha = 0,qntd_tent_senha = 0;
     // apenas 3 tentativas permitidas, a partir disso o programa encerra
@@ -88,7 +87,7 @@ int main() {
     float soma_valor,valor_pago, troco, valor_troco=0, valor_vendas = 0, saldo_caixa = 0;
     int qntd_200 = 0,qntd_100 = 0, qntd_50 = 0,qntd_10 = 0,qntd_5 = 0,qntd_1 = 0,qntd_050 = 0, qntd_vendas = 0,semtroco_flag;
     char resposta=0;
-// passo 4, repetir a funÁ„o de leitura de vendas atÈ fechar o caixa ou acabar o troco
+// passo 4, repetir a fun√ß√£o de leitura de vendas at√© fechar o caixa ou acabar o troco
     do{
 //Zerando variaveis
         soma_valor = 0;
@@ -107,7 +106,7 @@ int main() {
 //Zerando variaveis
         system("cls");
         qntd_vendas++;
-//Para n„o haver valor negativo na leitura de vendas
+//Para n√£o haver valor negativo na leitura de vendas
         do{
            soma_valor=leitura_vendas(qntd_vendas);
         }while(soma_valor == 0);
@@ -181,7 +180,7 @@ int main() {
                     troco = 0;
                 }
             }while(troco > 0);
-// impress„o do troco a ser dado para o cliente
+// impress√£o do troco a ser dado para o cliente
             if(semtroco_flag == 0){
                 printf("\nO troco sera de: R$%.2f", valor_troco);
                 if(qntd_200 != 0){
@@ -233,7 +232,7 @@ int main() {
                         printf("\n\t%d moedas de R$0.50",qntd_050);
                     }
                 }
-// caso nao haja troco, a venda È desconsiderada e o dinheiro retorna para o caixa e ele È encerrado
+// caso nao haja troco, a venda √© desconsiderada e o dinheiro retorna para o caixa e ele √© encerrado
             }else{
                 if( qntd_200 != 0){
                     nota_200 += qntd_200;
@@ -274,7 +273,7 @@ int main() {
         scanf("%c", &resposta);
     }
     }while(resposta != 'S' && resposta != 's');
-// finalizaÁ„o do caixa
+// finaliza√ß√£o do caixa
     system("cls");
     printf("\n200 - %d",nota_200);
     printf("\n100 - %d",nota_100);
@@ -283,7 +282,7 @@ int main() {
     printf("\n5 - %d",nota_5);
     printf("\n1 - %d",moeda_1);
     printf("\n0.5 - %d",moeda_50);
-// calcula o saldo disponivel atravÈs da quantidade de cedulas
+// calcula o saldo disponivel atrav√©s da quantidade de cedulas
     saldo_caixa += (nota_200 * 200);
     saldo_caixa += (nota_100 * 100);
     saldo_caixa += (nota_50 * 50);
