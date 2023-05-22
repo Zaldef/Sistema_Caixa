@@ -18,7 +18,7 @@ void moldura_inicial(){
     }
     printf("%c",185);
 }
-// Função para verificar atraves de comparação, parametro de entrada é uma senha definida quando a função é chamada
+// Funï¿½ï¿½o para verificar atraves de comparaï¿½ï¿½o, parametro de entrada ï¿½ uma senha definida quando a funï¿½ï¿½o ï¿½ chamada
 void verificacao_senha(int senha){
     int tent_senha = 0,qntd_tent_senha = 0;
     // apenas 3 tentativas permitidas, a partir disso o programa encerra
@@ -204,7 +204,6 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
                     valor_troco +=0.5;
                 }
             }
-// caso acabe o troco, ativa a flag
         }while(troco > 0);
         printf("\nO troco sera de: R$%.2f", valor_troco);
         if(qntd_200 != 0){
@@ -269,6 +268,7 @@ int main() {
     char resposta=0;
 
     do{
+        system("cls");
         saldo_caixa = cal_saldo_caixa(nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
         qntd_vendas++;
         do{
@@ -289,14 +289,17 @@ int main() {
     }while(resposta != 'S' && resposta != 's');
 
     system("cls");
-    printf("\n200 - %d",nota_200);
-    printf("\n100 - %d",nota_100);
-    printf("\n50 - %d",nota_50);
-    printf("\n10 - %d",nota_10);
-    printf("\n5 - %d",nota_5);
-    printf("\n1 - %d",moeda_1);
-    printf("\n0.5 - %d",moeda_50);
-// calcula o saldo disponivel através da quantidade de cedulas
+    printf("\nNotas Disponiveis:");
+    printf("\nNotas de 200 reais: %d",nota_200);
+    printf("\nNotas de 100 reais: %d",nota_100);
+    printf("\nNotas de 50 reais: %d",nota_50);
+    printf("\nNotas de 10 reais: %d",nota_10);
+    printf("\nNotas de 5 reais: %d",nota_5);
+    printf("\nMoedas de 1: %d",moeda_1);
+    printf("\nMoedas de 0.5: %d",moeda_50);
+    printf("\n");
+
+// calcula o saldo disponivel atravï¿½s da quantidade de cedulas
     printf("\nValor disponivel no caixa: %.2f", saldo_caixa);
     printf("\nQuantidade de vendas: %d", qntd_vendas);
     printf("\nValor total das vendas: %.2f", valor_vendas);
