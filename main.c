@@ -330,7 +330,7 @@ int main() {
     }while(resposta != 'S' && resposta != 's');
 
     system("cls");
-    printf("\n\t\tNotas Disponiveis:");
+    printf("\n\tNotas Disponiveis:");
     printf("\n\t\tNotas de 200 reais: \t%d",nota_200);
     printf("\n\t\tNotas de 100 reais: \t%d",nota_100);
     printf("\n\t\tNotas de 50 reais: \t%d",nota_50);
