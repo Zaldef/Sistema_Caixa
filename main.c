@@ -120,7 +120,7 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
     // loop para inserção das notas
     do{
         if(troco_flag == 1){
-            printf("\tErro na digitacao das notas, valor e diferente do valor pago!!!\n Tente novamente\n");
+            printf("\tErro na digitacao das notas, valor e diferente do valor pago!!!\n\tTente novamente\n");
             soma_troco = 0;
         }
         // zerando as variaveis para utilizar
@@ -296,6 +296,23 @@ void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *po
     }
 }
 
+void fechamento_de_caixa(int nota_200,int nota_100,int nota_50,int nota_10,int nota_5,int moeda_1,int moeda_50,float saldo_caixa,int qntd_vendas,float valor_vendas){
+     system("cls");
+    printf("\n\tNotas Disponiveis:");
+    printf("\n\t\tNotas de 200 reais: \t%d",nota_200);
+    printf("\n\t\tNotas de 100 reais: \t%d",nota_100);
+    printf("\n\t\tNotas de 50 reais: \t%d",nota_50);
+    printf("\n\t\tNotas de 10 reais: \t%d",nota_10);
+    printf("\n\t\tNotas de 5 reais: \t%d",nota_5);
+    printf("\n\t\tMoedas de 1: \t\t%d",moeda_1);
+    printf("\n\t\tMoedas de 0.5: \t\t%d",moeda_50);
+    // calcula o saldo disponivel através da quantidade de cedulas
+    saldo_caixa = cal_saldo_caixa(nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
+    printf("\n\tValor disponivel no caixa: \t%.2f", saldo_caixa);
+    printf("\n\tQuantidade de vendas: \t\t%d", qntd_vendas);
+    printf("\n\tValor total das vendas: \t%.2f", valor_vendas);
+
+}
 int main() {
     moldura_inicial();
     verificacao_senha(2323);
@@ -328,20 +345,6 @@ int main() {
             scanf("%c", &resposta);
         }
     }while(resposta != 'S' && resposta != 's');
-
-    system("cls");
-    printf("\n\tNotas Disponiveis:");
-    printf("\n\t\tNotas de 200 reais: \t%d",nota_200);
-    printf("\n\t\tNotas de 100 reais: \t%d",nota_100);
-    printf("\n\t\tNotas de 50 reais: \t%d",nota_50);
-    printf("\n\t\tNotas de 10 reais: \t%d",nota_10);
-    printf("\n\t\tNotas de 5 reais: \t%d",nota_5);
-    printf("\n\t\tMoedas de 1: \t\t%d",moeda_1);
-    printf("\n\t\tMoedas de 0.5: \t\t%d",moeda_50);
-    // calcula o saldo disponivel através da quantidade de cedulas
-    saldo_caixa = cal_saldo_caixa(nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
-    printf("\n\tValor disponivel no caixa: \t%.2f", saldo_caixa);
-    printf("\n\tQuantidade de vendas: \t\t%d", qntd_vendas);
-    printf("\n\tValor total das vendas: \t%.2f", valor_vendas);
+    fechamento_de_caixa(nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50,saldo_caixa,qntd_vendas,valor_vendas);
     return 0;
 }
