@@ -106,8 +106,8 @@ float cal_saldo_caixa(int nota_200,int nota_100, int nota_50,int nota_10,int not
 }
 // função de calculo de troco, ele opera num caixa "virtual" dentro dessa função e no final opera com ponteiros para autalizar o caixa real com os valores
 // do caixa virtual
-void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *pont_5,int *pont_1,int *pont_050, float soma_valor, int *semtroco_flag, float saldo_caixa, int nota_200,int nota_100,int nota_50,int nota_10,int nota_5,int moeda_1,int moeda_50){
-    float valor_pago, troco, valor_troco=0, soma_troco = 0;
+void calculo_troco(int *pont_200,int *pont_100,int *pont_50,int *pont_10,int *pont_5,int *pont_1,int *pont_050, float soma_valor, int *semtroco_flag, int nota_200,int nota_100,int nota_50,int nota_10,int nota_5,int moeda_1,int moeda_50){
+    float valor_pago, troco, valor_troco=0, soma_troco = 0, saldo_caixa;
     int qntd_200 = 0,qntd_100 = 0, qntd_50 = 0,qntd_10 = 0,qntd_5 = 0,qntd_1 = 0,qntd_050 = 0,qntd_r_200,qntd_r_100,qntd_r_50,qntd_r_10,qntd_r_5,qntd_r_1,qntd_r_050, troco_flag = 0;
     // verificação do valor pago
     do{
