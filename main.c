@@ -328,7 +328,7 @@ int main() {
         soma_valor=leitura_vendas(qntd_vendas);
         if(soma_valor != 0 ){
             printf("\n\tValor total da compra: \tR$%.2f", soma_valor);
-            calculo_troco(&nota_200,&nota_100,&nota_50,&nota_10,&nota_5,&moeda_1,&moeda_50,soma_valor,&semtroco_flag,saldo_caixa,nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
+            calculo_troco(&nota_200,&nota_100,&nota_50,&nota_10,&nota_5,&moeda_1,&moeda_50,soma_valor,&semtroco_flag,nota_200,nota_100,nota_50,nota_10,nota_5,moeda_1,moeda_50);
             if(semtroco_flag == 0){
                 valor_vendas += soma_valor;
                 printf("\n\tDeseja fechar o caixa?(SIM-S/NAO-N)");
